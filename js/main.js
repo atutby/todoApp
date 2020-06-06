@@ -1,8 +1,12 @@
+// массив для хранения задач
 let arrayTasks = [];
+
+// поиск формы на странице
 const form = document.querySelector('#newTaskForm');
 const taskInput = document.querySelector('#addNewTask');
 const tasksList = document.querySelector('#tasksList');
 
+//получение данных из localstorage
 if(localStorage.getItem('arrayTasks')){
     arrayTasks = JSON.parse(localStorage.getItem('arrayTasks'));
     arrayTasks.forEach(function (item) {
@@ -16,12 +20,15 @@ if(localStorage.getItem('arrayTasks')){
     })
 }
 
+// отслеживаем событие отправки формы
 form.addEventListener('submit', function (event) {
     event.preventDefault();
 
+    // Добавляем задачу в массив tasks
     const taskText = taskInput.value;
     arrayTasks.push(taskText);
 
+    // сохранение в localstorage
     localStorage.setItem('arrayTasks', JSON.stringify(arrayTasks) );
 
     const taskHtml = `<li class="list-group-item d-flex justify-content-between">
@@ -32,6 +39,7 @@ form.addEventListener('submit', function (event) {
     tasksList.insertAdjacentHTML('afterbegin', taskHtml);
     taskInput.value = '';
 })
+
 
 //удаление задачи
 tasksList.addEventListener('click', function (event) {
